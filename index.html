@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Project</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container text-center mt-4">
+      <h1>Exercise For EidosMedia</h1>
+      <h5>Author : Ahmet Kaan Ipekoren</h5>
+      <h5>Date : 07.11.2021</h5>
+      <div class="row">
+        <label for="imageCounter"
+          >Choose how many Image do you want to print?</label
+        ><br />
+        <input
+          placeholder="How many images?"
+          id="imageCounter"
+          type="text"
+          onkeypress="return isNumberKey(event)"
+        />
+      </div>
+      <div class="row">
+        <button id="printButton" disabled onclick="printImages()">
+          Get Images
+        </button>
+        <button onclick="refreshImages()">Refresh</button>
+        <template>
+          <progress max="100" value="0"></progress>
+        </template>
+        <div class="containerProgress" id="containerProgress"></div>
+      </div>
+
+      <ul id="myList"></ul>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
