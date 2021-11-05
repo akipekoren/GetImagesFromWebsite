@@ -1,6 +1,6 @@
 var pageUrl = "https://www.corriere.it/"; // target url link
 var delay = 400;
-
+var isPrinted = false;
 let promise = Promise.resolve();
 let container = document.querySelector(".containerProgress");
 let template = document.querySelector("template");
@@ -58,25 +58,31 @@ function printUrlandImage(url) {
 }
 
 async function printImages() {
-  var str = document.getElementById("imageCounter").value; // retrieve input
-  imageCounter = parseInt(str); // conver to int
-  document.getElementById("imageCounter").value = ""; //delete input field after submission
-  document.getElementById("printButton").disabled = true;
-  var pageContent = await getHTMLOfThePage(pageUrl);
-  var imagesUrls = getImageUrlsFromPage(pageContent); // get only image urls in the html page
-  let bar = addProgress();
-  promise = promise.then(() => loader(bar, delay * imageCounter));
-  var i = 0;
-  function myLoop() {
-    setTimeout(function () {
-      printUrlandImage(imagesUrls[i]);
-      i++; //  increment the counter
-      if (i < imageCounter) {
-        myLoop();
-      }
-    }, delay);
+  if (!isPrinted) {
+    var str = document.getElementById("imageCounter").value; // retrieve input
+    imageCounter = parseInt(str); // conver to int
+    document.getElementById("imageCounter").value = ""; //delete input field after submission
+    document.getElementById("printButton").disabled = true;
+    var pageContent = await getHTMLOfThePage(pageUrl);
+    var imagesUrls = getImageUrlsFromPage(pageContent); // get only image urls in the html page
+    let bar = addProgress();
+    promise = promise.then(() => loader(bar, delay * imageCounter));
+    var i = 0;
+    function myLoop() {
+      setTimeout(function () {
+        printUrlandImage(imagesUrls[i]);
+        i++; //  increment the counter
+        if (i < imageCounter) {
+          myLoop();
+        }
+      }, delay);
+    }
+    myLoop();
+    isPrinted = true;
+  } else {
+    refreshImages();
+    printImages();
   }
-  myLoop();
 }
 
 async function refreshImages() {
@@ -84,6 +90,7 @@ async function refreshImages() {
   var progressBar = document.getElementById("containerProgress");
   myList.innerHTML = ""; // make mylist empty
   progressBar.innerHTML = "";
+  isPrinted = false;
 }
 
 function loader(element, time) {
