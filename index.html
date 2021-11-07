@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Project</title>
+    <title>EidosMedia Exercise</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -9,7 +9,7 @@
     />
   </head>
   <body>
-    <div class="container text-center mt-4">
+    <div class="container text-center">
       <h1>Exercise For EidosMedia</h1>
       <h5>Author : Ahmet Kaan Ipekoren</h5>
       <h5>Date : 07.11.2021</h5>
@@ -25,18 +25,19 @@
         />
       </div>
       <div class="row">
-        <button id="printButton" disabled onclick="printImages()">
+        <button id="printButton" disabled onclick="retrieveImages()">
           Get Images
         </button>
         <button onclick="refreshImages()">Refresh</button>
         <template>
           <progress max="100" value="0"></progress>
         </template>
-        <div class="containerProgress" id="containerProgress"></div>
+        <div class="container-progress" id="container-progress"></div>
       </div>
 
       <ul id="myList"></ul>
     </div>
+
     <script src="./script.js"></script>
   </body>
 </html>
